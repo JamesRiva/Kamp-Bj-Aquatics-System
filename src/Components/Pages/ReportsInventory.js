@@ -457,7 +457,7 @@ export const ReportsInventoryYearly = () => {
   }
 
   const getTurnoverRatio = () => {
-    fetch(`${apiUrl}/KampBJ-api/server/getTurnoverRatio.php`, {
+    fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getTurnoverRatio.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ year: selectedYear }),
