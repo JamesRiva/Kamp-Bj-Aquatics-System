@@ -58,7 +58,7 @@ export const ReportsInventoryMonthly = () => {
 
     fetchMostRestockedProducts(formattedMonth);
     fetchLeastRestockedProducts(formattedMonth);
-    getATS();
+    getATS(formattedMonth);
   };
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export const ReportsInventoryMonthly = () => {
 
     fetchMostRestockedProducts(formattedMonth);
     fetchLeastRestockedProducts(formattedMonth);
-    getATS();
+    getATS(formattedMonth);
   },[])
 
   const fetchMostRestockedProducts = (selectedMonth) => {
@@ -124,10 +124,11 @@ export const ReportsInventoryMonthly = () => {
       });
   }
 
-  const getATS = () => {
+  const getATS = (selectedMonth) => {
     fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getATS.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dateRange: selectedMonth }),
     })
       .then(response => response.json())
       .then(data => {
