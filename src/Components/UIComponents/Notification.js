@@ -20,6 +20,7 @@ const Notification = () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    console.log(data.notifications);
                     setNotifications(data.notifications);
                 } else {
                     console.error('No notifications found:', data.message);

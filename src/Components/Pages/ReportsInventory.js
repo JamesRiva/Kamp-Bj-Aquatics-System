@@ -5,6 +5,7 @@ import GeneratePdf from '../UIComponents/GeneratePdf';
 import { MonthSelection, YearSelection } from '../UIComponents/DateControls';
 import { ComposedChart, Bar, Legend, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ToastError } from '../UIComponents/ToastComponent';
+import { CustomToolTipForSellingTime, CustomToolTipForTurnOverRatio } from '../UIComponents/CustomToolTip';
 
 const ReportsInventory = () => {
   
@@ -133,11 +134,10 @@ export const ReportsInventoryMonthly = () => {
       .then(response => response.json())
       .then(data => {
         if(data.length > 0){
-          setAverageTimeToSell(data); // Assuming you use useState to manage chart data
+          setAverageTimeToSell(data);
         }else{
-          setAverageTimeToSell([]); // Assuming you use useState to manage chart data
+          setAverageTimeToSell([]);
         }
-        
       })
       .catch(error => console.error('Error fetching gross margin data:', error));
                   
@@ -167,12 +167,13 @@ export const ReportsInventoryMonthly = () => {
           elementsGraphsDescription='graph-container__description'
           elementGraphWrapper='graphs-container__chart-wrapper'
           graphWrapperHeight='300px'
+          graphClass='graph-selling-time'
         />
       </div>
 
       <div className='reports-inventory-component__body' id='component-body'>
 
-        <div className='graphs-container graph-shadow' id='graph-container-avg-selling-time'>
+        <div className='graphs-container graph-shadow graph-selling-time' id='graph-container-avg-selling-time'>
           <div className='graphs-header'>
             <h3 className='reports-inventory-graph-title'>Average Selling Time</h3>
             <GraphsImageDownloader elementId='graph-container-avg-selling-time' />
@@ -191,11 +192,20 @@ export const ReportsInventoryMonthly = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="productName" dy={5} tick={{ fontSize: 14 }} />
+                <XAxis dataKey="productName" dy={5} angle={-20} 
+                  tick={({ x, y, payload }) => {
+                    const label = truncateLabel(payload.value, 14);  // Truncate label
+                    return (
+                      <text x={x} y={y} textAnchor="middle" fontSize={14} dy={10}>
+                        {label}
+                      </text>
+                    );
+                  }}
+                />
                 <YAxis tick={{ fontSize: 14 }}/>
-                <Tooltip />
                 <Legend />
                 <Area type="monotone" dataKey="Average_Selling_Time_Days" stroke="#8884d8" fill="#8884d8" />
+                <Tooltip content={<CustomToolTipForSellingTime />} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -447,7 +457,7 @@ export const ReportsInventoryYearly = () => {
   }
 
   const getTurnoverRatio = () => {
-    fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getTurnoverRatio.php`, {
+    fetch(`${apiUrl}/KampBJ-api/server/getTurnoverRatio.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ year: selectedYear }),
@@ -455,9 +465,9 @@ export const ReportsInventoryYearly = () => {
       .then(response => response.json())
       .then(data => {
         if(data.length > 0){
-          setTurnoverRatio(data); // Assuming you use useState to manage chart data
+          setTurnoverRatio(data);
         }else{
-          setTurnoverRatio([]); // Assuming you use useState to manage chart data
+          setTurnoverRatio([]);
         }
         
       })
@@ -487,13 +497,14 @@ export const ReportsInventoryYearly = () => {
           elementGraphsTable='graph-container__table' 
           elementsGraphsDescription='graph-container__description'
           elementGraphWrapper='graphs-container__chart-wrapper'
+          graphClass='graph-turn-over-ratio'
           graphWrapperHeight='300px'
         />
       </div>
 
       <div className='reports-inventory-component__body'>
 
-        <div className='graphs-container graph-shadow' id='graph-container-inventory-ratio'>
+        <div className='graphs-container graph-shadow graph-turn-over-ratio' id='graph-container-inventory-ratio'>
           <div className='graphs-header'>
             <h3 className='reports-inventory-graph-title'>Highest Inventory Turn Over Ratio</h3>
             <GraphsImageDownloader elementId='graph-container-inventory-ratio' />
@@ -512,9 +523,18 @@ export const ReportsInventoryYearly = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="productName" dy={5} tick={{ fontSize: 14 }} />
+                <XAxis dataKey="productName" dy={5} angle={-20}
+                  tick={({ x, y, payload }) => {
+                    const label = truncateLabel(payload.value, 14);  // Truncate label
+                    return (
+                      <text x={x} y={y} textAnchor="middle" fontSize={14} dy={10}>
+                        {label}
+                      </text>
+                    );
+                  }}
+                />
                 <YAxis tick={{ fontSize: 14 }}/>
-                <Tooltip />
+                <Tooltip content={<CustomToolTipForTurnOverRatio />}/>
                 <Legend />
                 <Area type="monotone" dataKey="Inventory_Turnover_Ratio" stroke="#8884d8" fill="#8884d8" />
               </AreaChart>

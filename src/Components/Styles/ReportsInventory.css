@@ -72,6 +72,15 @@
     text-align: center;
 }
 
+/* POSITIONING OF GRAPHS */
+.graph-selling-time {
+    grid-column: 1/3;
+}
+
+.graph-turn-over-ratio {
+    grid-column: 1/3;
+}
+
 /* Style for PDF generation */
   @media print {
     .pdf-export {
@@ -81,11 +90,18 @@
   }
 
 
-
   /* MEDIA QUERIES */
 @media screen and (min-width: 769px) and (max-width: 999px) {
     .reports-inventory-component__body {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .graph-selling-time {
+        grid-column: 1/2;
+    }
+
+    .graph-turn-over-ratio {
+        grid-column: 1/3;
     }
 }
 
@@ -93,10 +109,26 @@
     .reports-inventory-component__body {
         grid-template-columns: repeat(1, 1fr);
     }
+
+    .graph-selling-time {
+        grid-column: 1/2;
+    }
+
+    .graph-turn-over-ratio {
+        grid-column: 1/3;
+    }
 }
 
 @media screen and (max-width: 599px) {
     .reports-inventory-component__body {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .graph-selling-time {
+        grid-column: 1/2;
+    }
+
+    .graph-turn-over-ratio {
+        grid-column: 1/3;
     }
 }

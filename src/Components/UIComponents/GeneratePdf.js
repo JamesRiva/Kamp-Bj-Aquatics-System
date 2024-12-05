@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 import ButtonComponent from './ButtonComponent';
 import LoadingState from '../UIComponents/LoadingState';
 
-const GeneratePdf = ({elementId, date, reportTitle, elementGraphsTable, elementsGraphsDescription, elementGraphWrapper, graphWrapperHeight}) => {
+const GeneratePdf = ({elementId, date, reportTitle, elementGraphsTable, elementsGraphsDescription, elementGraphWrapper, graphWrapperHeight, graphClass}) => {
   const [loading, setLoading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [graphImages, setGraphImages] = useState([]);
@@ -17,6 +17,7 @@ const GeneratePdf = ({elementId, date, reportTitle, elementGraphsTable, elements
     const graphsTable = document.querySelectorAll(`.${elementGraphsTable}`);
     const graphsDescription = document.querySelectorAll(`.${elementsGraphsDescription}`);
     const graphsWrapper = document.querySelectorAll(`.${elementGraphWrapper}`);
+    const customGraphClass = document.querySelector(`.${graphClass}`)
 
     if (graphs.length > 0) {
       const images = [];
@@ -24,6 +25,13 @@ const GeneratePdf = ({elementId, date, reportTitle, elementGraphsTable, elements
       graphsTable.forEach(table => table.style.display = 'block');
       graphsDescription.forEach(description => description.style.display = 'flex');
       graphsWrapper.forEach(wrapper => wrapper.style.height = '280px');
+
+      // Get the current computed styles of the element
+      const computedStyles = window.getComputedStyle(customGraphClass);
+      // Retrieve the current grid-column value
+      const defaultGridColumn = computedStyles.getPropertyValue('grid-column');
+
+      customGraphClass.style.gridColumn = '1 / 2';
 
       setTimeout( async() => {
         for (const graph of graphs) {
@@ -49,6 +57,7 @@ const GeneratePdf = ({elementId, date, reportTitle, elementGraphsTable, elements
         graphsTable.forEach(table => table.style.display = 'none');
         graphsDescription.forEach(description => description.style.display = 'none');
         graphsWrapper.forEach(wrapper => wrapper.style.height = `${graphWrapperHeight}`);
+        customGraphClass.style.gridColumn = defaultGridColumn;
 
         setLoading(false); 
       }, 2000)
@@ -83,7 +92,6 @@ export const Preview = ({graphs, closePreview, date, setShowPreview, reportTitle
     const previewElement = document.getElementById('preview-body');
     const previewContainer = document.querySelector('.preview__graphs-container');
     const closeIcon = document.querySelector('.preview__close-icon');
-
 
     if (previewElement) {
       footer.style.display = 'none';  
