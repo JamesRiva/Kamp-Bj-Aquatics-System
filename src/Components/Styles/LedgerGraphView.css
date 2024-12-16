@@ -1,0 +1,51 @@
+.ledger-graph-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100svh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.829);
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ledger-graph-view__wrapper {
+    background: white;
+    padding: 1rem 1rem;
+    border-radius: 5px;
+    position: relative;
+    width: 900px;
+}
+
+.ledger-graph-view__close-icon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.ledger-graph-view__header h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.ledger-graph-view__header p {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.ledger-graph-view__body {
+    margin-top: 1rem;
+    height: 85vh;
+    overflow: auto;
+}
+
+.ledger-graph-view__message-wrapper {
+    margin-top: 3rem;
+}

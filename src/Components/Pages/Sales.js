@@ -66,7 +66,6 @@ const Sales = () => {
         return () => document.removeEventListener('click', handler);
     }, []);
 
-    
     const handleShowProducts = async (salesId) => {  
         try {
             const response = await fetch(`${apiUrl}/KampBJ-api/server/fetchSalesProducts.php`, {
@@ -90,32 +89,31 @@ const Sales = () => {
     };
     
      // Filter and sort sales data based on search term, date, and total
-const filteredSalesData = salesData
-.filter(sale => {
-    // Check if the sale matches the search term (ID or username)
-    const matchesSearch = sale.id.toString().includes(searchTerm) || 
-        sale.username.toLowerCase().includes(searchTerm.toLowerCase());
+    const filteredSalesData = salesData
+    .filter(sale => {
+        // Check if the sale matches the search term (ID or username)
+        const matchesSearch = sale.id.toString().includes(searchTerm) || 
+            sale.username.toLowerCase().includes(searchTerm.toLowerCase());
 
-    // Check if the sale falls within the date range (if specified)
-    const saleDate = new Date(sale.date);
-    const startDate = filters.startDate ? new Date(filters.startDate) : null;
-    const endDate = filters.endDate ? new Date(filters.endDate) : null;
+        // Check if the sale falls within the date range (if specified)
+        const saleDate = new Date(sale.date);
+        const startDate = filters.startDate ? new Date(filters.startDate) : null;
+        const endDate = filters.endDate ? new Date(filters.endDate) : null;
 
-    const matchesDate = (!startDate || saleDate >= startDate) && 
-        (!endDate || saleDate <= endDate);
+        const matchesDate = (!startDate || saleDate >= startDate) && 
+            (!endDate || saleDate <= endDate);
 
-    return matchesSearch && matchesDate;
-})
-.sort((a, b) => {
-    if (filters.filterBy === 'total_high') {
-        return b.total - a.total; // Sort by total descending
-    }
-    if (filters.filterBy === 'total_low') {
-        return a.total - b.total; // Sort by total ascending
-    }
-    return 0; // No sorting applied
-});
-
+        return matchesSearch && matchesDate;
+    })
+    .sort((a, b) => {
+        if (filters.filterBy === 'total_high') {
+            return b.total - a.total; // Sort by total descending
+        }
+        if (filters.filterBy === 'total_low') {
+            return a.total - b.total; // Sort by total ascending
+        }
+        return 0; // No sorting applied
+    });
 
     const resetFilters = () => {
         setFilters({

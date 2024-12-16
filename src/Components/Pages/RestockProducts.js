@@ -5,6 +5,7 @@ import { RestockProductRightIcon, DeleteIcon } from '../UIComponents/ActionIcons
 import ButtonComponent from '../UIComponents/ButtonComponent';
 import { ToastSuccess, ToastError } from '../UIComponents/ToastComponent';
 import LoadingState from '../UIComponents/LoadingState';
+import RestockingReminder from '../UIComponents/RestockingReminder';
 
 const RestockProducts = () => {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,7 @@ const RestockProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null); // State to track the selected product
   const [restockList, setRestockList] = useState([]); // State to track the list of items to restock
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [restockingReminder, setRestockingReminder] = useState(false);
   const [filters, setFilters] = useState({
     filterBy: '',
   }); // State for filters
@@ -133,11 +135,6 @@ const RestockProducts = () => {
     isSetAddToRestockModalOpen(false); // Close the modal
   };
 
-  // Remove an item from the restock list
-  // const removeRestockItem = (index) => {
-  //   setRestockList((prevRestockList) => prevRestockList.filter((_, i) => i !== index));
-  // };
-
   // Filter products based on the search query and other filters
   const filteredProducts = products
     .filter((product) =>
@@ -185,6 +182,7 @@ const RestockProducts = () => {
           ToastSuccess('Restock processed successfully');
           setRestockList([]); // Clear the restock list after successful submission
           fetchProductData(); // Re-fetch the product data after processing restock
+          setRestockingReminder(false);
         } else {
           ToastError(`Error: ${data.message}`);
         }
@@ -303,13 +301,14 @@ const RestockProducts = () => {
                 restockContainerClass={isRestockListContainerVisible ? 'restock-container-active':''}
                 restockListContainerRef={restockListContainerRef} 
                 restockList={restockList}
-                submit={handleRestockSubmit}
+                onClick={() => setRestockingReminder(true)}
                 setRestockList={setRestockList}
             />
         </div>
       </div>
 
       {loading && <LoadingState />}
+      {restockingReminder && <RestockingReminder proceed={handleRestockSubmit} cancel={() => setRestockingReminder(false)}/>}
     </div>
   );
 };
@@ -318,7 +317,7 @@ export default RestockProducts;
 
 
 
-export const RestockContainer = ({restockContainerClass, restockListContainerRef, setRestockList, restockList,  submit }) => {
+export const RestockContainer = ({restockContainerClass, restockListContainerRef, setRestockList, restockList,  onClick }) => {
   const removeRestockItem = (index) => {
       setRestockList((prevRestockList) => prevRestockList.filter((_, i) => i !== index));
   };
@@ -354,7 +353,7 @@ export const RestockContainer = ({restockContainerClass, restockListContainerRef
                 </tbody>
               </table>
             </div>
-            <ButtonComponent buttonCustomClass='restock-products__submit-restock' label='Process Restock' onClick={submit} /> 
+            <ButtonComponent buttonCustomClass='restock-products__submit-restock' label='Process Restock' onClick={onClick} /> 
           </div>
   )
 }

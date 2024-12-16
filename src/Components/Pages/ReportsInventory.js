@@ -129,13 +129,14 @@ export const ReportsInventoryMonthly = () => {
     fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getATS.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ dateRange: selectedMonth }),
     })
       .then(response => response.json())
       .then(data => {
         if(data.length > 0){
+          console.log(data);
           setAverageTimeToSell(data);
         }else{
+          console.log(data);
           setAverageTimeToSell([]);
         }
       })
@@ -224,7 +225,7 @@ export const ReportsInventoryMonthly = () => {
                     averageTimeToSell.map((items, index) => (
                       <tr key={index}>
                         <td>{items.productName}</td>
-                        <td>{items.Average_Selling_Time_Days}</td>
+                        <td>{items.Average_Selling_Time_Days} Days</td>
                       </tr>
                     ))
                   }

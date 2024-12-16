@@ -200,7 +200,7 @@ const getExpensesData = (year) => {
         </div>
 
         <div className='graph-container yearly-most-sold-products'>
-          <h3 className='graph-title'>Top 5 Most Sold Products</h3>
+          <h3 className='graph-title'>Top 10 Most Sold Products</h3>
           <ResponsiveContainer width="100%" height="95%">
             <BarChart
               width={500}
@@ -216,9 +216,9 @@ const getExpensesData = (year) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name"
                 dy={10}
-                angle={-20}
+                angle={-50}
                 tick={({ x, y, payload }) => {
-                  const label = truncateLabel(payload.value, 12);  // Truncate label
+                  const label = truncateLabel(payload.value, 5);  // Truncate label
                   return (
                     <text x={x} y={y} textAnchor="middle" dy={15}  fontSize={12}>
                       {label}

@@ -7,6 +7,7 @@ import { ViewExpensesIcon } from '../UIComponents/ActionIcons';
 import TextSlicer from '../Utils/TextSlicer';
 import DatePicker from 'react-datepicker';
 import LoadingState from '../UIComponents/LoadingState';
+import ExpensesReminder from '../UIComponents/ExpensesReminder';
 
 const BusinessExpenses = () => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,8 @@ const BusinessExpenses = () => {
   const filterDropdownRef = useRef(null);
   const [expensesData, setExpensesData] = useState([]);
   const [selectedExpense, setSelectedExpense] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // New state for search term
+  const [searchTerm, setSearchTerm] = useState('');
+  const [expensesReminder, setExpensesReminder] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   // Initial Values For Filters Store In useState
@@ -208,7 +210,7 @@ const handleEditClick = (expense) => {
         </div>
         <div className='business-expenses__right-controls-wrapper'>
           <button className='business-expenses__insert'>
-            <i className="business-expenses__insert-icon fa-solid fa-plus" title='Add Expenses' onClick={toggleAddModal}></i>
+            <i className="business-expenses__insert-icon fa-solid fa-plus" title='Add Expenses' onClick={()=>setExpensesReminder(true)}></i>
           </button>
         </div>
       </div>
@@ -253,7 +255,9 @@ const handleEditClick = (expense) => {
       </div>
       {isAddModalOpen && <AddExpensesModal onClick={toggleAddModal} refresh={fetchExpenses}/>}
       {isEditModalOpen && selectedExpense && <EditExpensesModal onClick={toggleEditModal} selectedExpense={selectedExpense} refresh={fetchExpenses} />}
+      
 
+      {expensesReminder && <ExpensesReminder proceed={() => { isSetAddModalOpen(true); setExpensesReminder(false) }} cancel={() => setExpensesReminder(false)} />}
       {loading && <LoadingState />}
     </div>
   );

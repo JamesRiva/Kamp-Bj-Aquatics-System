@@ -70,25 +70,25 @@ const AddUtilitiesModal = ({ onClick, refresh }) => {
       method: 'POST',
       body: formData,
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          ToastSuccess('Expense Added');
-          resetForm();
-          onClick();
-          setImagePreview(DefaultImagePreview);
-          refresh();
-        } else {
-          ToastError('Failed to add expense');
-        }
-      })
-      .catch((error) => {
-        console.error('Error inserting expense:', error);
-        ToastError('Error adding expense');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        ToastSuccess('Expense Added');
+        resetForm();
+        onClick();
+        setImagePreview(DefaultImagePreview);
+        refresh();
+      } else {
+        ToastError('Failed to add expense');
+      }
+    })
+    .catch((error) => {
+      console.error('Error inserting expense:', error);
+      ToastError('Error adding expense');
+    })
+    .finally(() => {
+      setLoading(false);
+    });
   };
 
   return (
@@ -154,6 +154,7 @@ const AddUtilitiesModal = ({ onClick, refresh }) => {
         </div>
       </div>
       <ToastContainer />
+      
 
       {loading && <LoadingState />}
     </div>

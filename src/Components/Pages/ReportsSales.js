@@ -136,7 +136,7 @@ export const ReportsSalesMonthly = () => {
   }
 
   const getGrossMargin = (formattedMonth) => {
-    fetch(`${apiUrl}/KampBJ-api/server/getGrossMargin.php`, {
+    fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getGrossMargin.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ selectedDate: formattedMonth }) // Change to desired month/year
@@ -154,7 +154,7 @@ export const ReportsSalesMonthly = () => {
   }
 
   const getGMROI = (formattedMonth) => {
-    fetch(`${apiUrl}/KampBJ-api/server/getGMROI.php`, {
+    fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getGMROI.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ selectedDate: formattedMonth }) // Change to desired month/year
@@ -588,7 +588,7 @@ export const ReportsSalesYearly = () => {
   }
 
   const getGrossMargin = () => {
-    fetch(`${apiUrl}/KampBJ-api/server/getGrossMargin.php`, {
+    fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getGrossMargin.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ selectedDate: selectedYear })
@@ -611,7 +611,7 @@ export const ReportsSalesYearly = () => {
   };
 
   const getGMROI = () => {
-    fetch(`${apiUrl}/KampBJ-api/server/getGMROI.php`, {
+    fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getGMROI.php`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ selectedDate: selectedYear })  // Change to desired month/year

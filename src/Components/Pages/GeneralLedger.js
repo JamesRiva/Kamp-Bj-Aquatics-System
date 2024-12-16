@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import '../Styles/GeneralLedger.css';
-import { YearSelection } from '../UIComponents/DateControls';
 import { ToastSuccess, ToastError } from '../UIComponents/ToastComponent';
 import GeneratePdf from '../UIComponents/GeneratePdf';
 import LoadingState from '../UIComponents/LoadingState';
+import ButtonComponent from '../UIComponents/ButtonComponent';
+import GeneralLedgerEnterCapital from '../UIComponents/GeneralLedgerEnterCapital';
+import LedgerGraphView from '../UIComponents/LedgerGraphView';
 
 const GeneralLedger = () => {
   const [loading, setLoading] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
   const [ledgerData, setLedgerData] = useState([]);
-  const [capitalInput, setCapitalInput] = useState(0);  // Default capital is 0
-  const [selectedYear, setSelectedYear] = useState(new Intl.DateTimeFormat('default', { year: 'numeric' }).format(new Date()));
+  const [currentYear, setCurrentYear] = useState(new Intl.DateTimeFormat('default', { year: 'numeric' }).format(new Date()));
+  const [ledgerModal, setLedgerModal] = useState(false);
+  const [ledgerGraphView, setLedgerGraphView] = useState(false);
 
-  const handleYearChange = (selectedYear) => {
-    const year = (new Intl.DateTimeFormat('default', { year: 'numeric' }).format(selectedYear));
-    setSelectedYear(year);
-    setLedgerData([]);
+  
 
-  };
+  useEffect(() => {
+    getSalesAndExpenses();
+  }, [])
 
-  const getSalesAndExpenses = (year) => {
-
-    const yearToUse = year || selectedYear;
-
-  const requestBody = JSON.stringify({
-      selectedYear: yearToUse,
-      capital: capitalInput
-  });
-
-  setLoading(true);
+  const getSalesAndExpenses = async() => {
+    setLoading(true);
 
     // Fetch data from the PHP script with the selectedYear and capitalInput
     fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getSalesAndExpenses.php`, {
@@ -36,7 +30,7 @@ const GeneralLedger = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: requestBody
+      body: JSON.stringify({ currYear: currentYear, endYear: '2022' }),
     })
       .then(response => response.json())
       .then(data => {
@@ -50,21 +44,7 @@ const GeneralLedger = () => {
       });
   };
 
-  const handleInputCapitalChange = (e) => {
-    const convertToFloat = e.target.value ? parseFloat(e.target.value) : 0;
-    setCapitalInput(convertToFloat);
-  };
-
-  const handleCapitalSubmit = () => {
-    if (isNaN(capitalInput) || capitalInput <= 0) {
-      ToastError('Please Enter A Valid Capital Amount');
-    } else {
-      ToastSuccess('Capital Added');
-      getSalesAndExpenses();
-      document.getElementsByClassName('general-ledger__input-field')[0].value = 0;
-
-    }
-  };
+  
 
   const formatCurrency = (currency) => {
     // Ensure debit is a valid number before applying formatting
@@ -78,25 +58,29 @@ const GeneralLedger = () => {
     return `₱ ${formattedCurrency}`;
   };
 
+  //Keep it here just in case
+  const formatDate = (date) => {
+    const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const [year, month] = date.split('-');
+
+    const translateMonth = months[parseInt(month, 10) - 1];
+
+    return `${year} - ${translateMonth}`;
+  }
+
   return (
     <div className='general-ledger'>
       <div className='general-ledger__header'>
 
         <div className='general-ledger__controls'>
           <div className='general-ledger__input-field-wrapper'>
-            <input
-              type='number'
-              placeholder='Enter Capital'
-              className='general-ledger__input-field'
-              onChange={handleInputCapitalChange}
-              step="0.01"
-            />
-            <i className="general-ledger__input-icon fa-solid fa-right-to-bracket" title='Insert Capital' onClick={handleCapitalSubmit}></i>
+            <p className='general-ledger__display-date'>2023 - {currentYear}</p>
           </div>
-          <GeneratePdf elementId='general-ledger__table' date={selectedYear} reportTitle='General Ledger Report'/>
-        </div>
-
-        <YearSelection onChange={handleYearChange} displayDate={selectedYear} />
+          <div className='general-ledger__right-controls'>
+            <ButtonComponent label='+' onClick={() => setLedgerModal(true)}/>
+            <ButtonComponent label={<i className="fa-solid fa-eye"></i>} onClick={() => setLedgerGraphView(true)}/> 
+          </div>
+        </div>        
       </div>
 
       <div className='general-ledger__body'>
@@ -114,33 +98,24 @@ const GeneralLedger = () => {
             </thead>
             <tbody>
               {
-                capitalInput <= 0 ? (
-                  <tr>
-                    <td>Please Enter Capital First</td>
-                  </tr>
-                ) :
-                (
-                  ledgerData.length > 0 ? ledgerData.map((ledgerItem, index) => (
-                    <tr className='inventory__table-tr' key={index}>
-                      <td className='inventory__table-td'>{ledgerItem.Month}</td>
-                      <td className='inventory__table-td'>{ledgerItem.Account}</td>
-                      <td className='inventory__table-td'>{ledgerItem.Description}</td>
-                      <td className='inventory__table-td'>{formatCurrency((ledgerItem.Debit * 1).toFixed(2))}</td>
-                      <td className='inventory__table-td'>{formatCurrency((ledgerItem.Credit * 1).toFixed(2))}</td>
-                      <td className='inventory__table-td'>{formatCurrency((ledgerItem.Balance * 1).toFixed(2))}</td>
+                ledgerData.map((item, index) => (
+                  <tr className='inventory__table-tr' key={index}>
+                      <td className='inventory__table-td'>{item.Month}</td>
+                      <td className='inventory__table-td'>{item.Account}</td>
+                      <td className='inventory__table-td'>{item.Description}</td>
+                      <td className='inventory__table-td'>{formatCurrency((item.Debit * 1).toFixed(2))}</td>
+                      <td className='inventory__table-td'>{formatCurrency((item.Credit * 1).toFixed(2))}</td>
+                      <td className='inventory__table-td'>{formatCurrency((item.Balance * 1).toFixed(2))}</td>
                     </tr>
-                  )) : (
-                    <tr>
-                      <td colSpan="6">Please select year and enter a Capital Amount</td>
-                    </tr>
-                  )
-                )
-              }
+                ))
+              }   
             </tbody>
           </table>
         </div>
       </div>
-
+      
+      {ledgerGraphView && <LedgerGraphView onClick={() => setLedgerGraphView(false)} ledgerData={ledgerData} />}
+      {ledgerModal && <GeneralLedgerEnterCapital onClick={() => setLedgerModal(false)} fetchSalesAndExpenses={getSalesAndExpenses} />}
       {loading && <LoadingState />}
     </div>
   );

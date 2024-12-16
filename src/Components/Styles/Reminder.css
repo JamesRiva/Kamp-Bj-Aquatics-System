@@ -1,0 +1,62 @@
+/* PREVIEW COMPONENT */
+.reminder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100svh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.829);
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reminder__container {
+    background: white;
+    padding: 1rem 1rem;
+    border-radius: 5px;
+    position: relative;
+    width: 900px;
+}
+
+.reminder__close-icon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.reminder__title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.reminder__title-wrapper h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.reminder__graphs-container {
+    padding: 1rem;
+}
+
+.reminder__message-wrapper {
+    margin-top: 1rem;    
+}
+
+.reminder__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.5rem 0rem;
+    background: white;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+

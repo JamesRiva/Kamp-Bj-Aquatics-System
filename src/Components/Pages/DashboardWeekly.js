@@ -171,7 +171,7 @@ const DashboardWeekly = () => {
       });
   };
 
-  const truncateLabel = (label, maxLength = 12  ) => {
+  const truncateLabel = (label, maxLength = 5  ) => {
     if (label.length > maxLength) {
       return `${label.slice(0, maxLength)}...`;
     }
@@ -216,7 +216,7 @@ const DashboardWeekly = () => {
         </div>
 
         <div className='graph-container weekly-most-sold-product'>
-          <h3 className='graph-title'>Top 5 Most Sold Products</h3>
+          <h3 className='graph-title'>Top 10 Most Sold Products</h3>
           <ResponsiveContainer width="100%" height="96%">
             <BarChart
               width={500}
@@ -232,7 +232,7 @@ const DashboardWeekly = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name"
                   fontSize={12} 
-                  angle={-10}
+                  angle={-20}
                 tick={({ x, y, payload }) => {
                   const label = truncateLabel(payload.value);  // Truncate label
                   return (
