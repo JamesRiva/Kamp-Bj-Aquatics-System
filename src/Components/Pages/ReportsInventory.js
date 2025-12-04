@@ -128,10 +128,7 @@ export const ReportsInventoryMonthly = () => {
   const getATS = (selectedMonth) => {
     fetch(`${apiUrl}/KampBJ-api/server/dataAnalysis/getATS.php`, {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json' 
-      },
-      body: JSON.stringify({ dateRange: selectedMonth }),
+      headers: { 'Content-Type': 'application/json' },
     })
       .then(response => response.json())
       .then(data => {
