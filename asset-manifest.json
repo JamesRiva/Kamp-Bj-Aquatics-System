@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/Kamp-Bj-Aquatics-System/static/css/main.560ad2f3.css",
+    "main.js": "/Kamp-Bj-Aquatics-System/static/js/main.9852f66b.js",
+    "static/js/213.a095f10a.chunk.js": "/Kamp-Bj-Aquatics-System/static/js/213.a095f10a.chunk.js",
+    "static/js/455.c02820da.chunk.js": "/Kamp-Bj-Aquatics-System/static/js/455.c02820da.chunk.js",
+    "static/js/453.83b4c497.chunk.js": "/Kamp-Bj-Aquatics-System/static/js/453.83b4c497.chunk.js",
+    "static/media/welcome-bj.png": "/Kamp-Bj-Aquatics-System/static/media/welcome-bj.6c61e32f3e13da88f630.png",
+    "static/media/loginImg.png": "/Kamp-Bj-Aquatics-System/static/media/loginImg.cc922e2f4c8c5a6f3d53.png",
+    "static/media/bg.jpg": "/Kamp-Bj-Aquatics-System/static/media/bg.364c893c864c65c356fb.jpg",
+    "static/media/hero-img.png": "/Kamp-Bj-Aquatics-System/static/media/hero-img.c1b9f1718e9996193299.png",
+    "static/media/about-us-img.png": "/Kamp-Bj-Aquatics-System/static/media/about-us-img.07d51c20ec445f4318f2.png",
+    "static/media/product1.jpg": "/Kamp-Bj-Aquatics-System/static/media/product1.864861f4409e753dfdad.jpg",
+    "static/media/logo.png": "/Kamp-Bj-Aquatics-System/static/media/logo.4b74122e81e74fdac039.png",
+    "static/media/customer2.png": "/Kamp-Bj-Aquatics-System/static/media/customer2.7da7dc07d20aeafa7aa0.png",
+    "static/media/customer1.png": "/Kamp-Bj-Aquatics-System/static/media/customer1.59245ba177a8b1135478.png",
+    "static/media/customer3.png": "/Kamp-Bj-Aquatics-System/static/media/customer3.d46906de082d4b085dd8.png",
+    "static/media/cutomer4.png": "/Kamp-Bj-Aquatics-System/static/media/cutomer4.bfd5858638d01598b4ae.png",
+    "index.html": "/Kamp-Bj-Aquatics-System/index.html",
+    "main.560ad2f3.css.map": "/Kamp-Bj-Aquatics-System/static/css/main.560ad2f3.css.map",
+    "main.9852f66b.js.map": "/Kamp-Bj-Aquatics-System/static/js/main.9852f66b.js.map",
+    "213.a095f10a.chunk.js.map": "/Kamp-Bj-Aquatics-System/static/js/213.a095f10a.chunk.js.map",
+    "455.c02820da.chunk.js.map": "/Kamp-Bj-Aquatics-System/static/js/455.c02820da.chunk.js.map",
+    "453.83b4c497.chunk.js.map": "/Kamp-Bj-Aquatics-System/static/js/453.83b4c497.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.560ad2f3.css",
+    "static/js/main.9852f66b.js"
+  ]
+}
