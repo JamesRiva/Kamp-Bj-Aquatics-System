@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Kamp-Bj-Aquatics-System/static/css/main.560ad2f3.css",
-    "main.js": "/Kamp-Bj-Aquatics-System/static/js/main.9852f66b.js",
+    "main.js": "/Kamp-Bj-Aquatics-System/static/js/main.f4dd5e9b.js",
     "static/js/213.a095f10a.chunk.js": "/Kamp-Bj-Aquatics-System/static/js/213.a095f10a.chunk.js",
     "static/js/455.c02820da.chunk.js": "/Kamp-Bj-Aquatics-System/static/js/455.c02820da.chunk.js",
     "static/js/453.83b4c497.chunk.js": "/Kamp-Bj-Aquatics-System/static/js/453.83b4c497.chunk.js",
@@ -18,13 +18,13 @@
     "static/media/cutomer4.png": "/Kamp-Bj-Aquatics-System/static/media/cutomer4.bfd5858638d01598b4ae.png",
     "index.html": "/Kamp-Bj-Aquatics-System/index.html",
     "main.560ad2f3.css.map": "/Kamp-Bj-Aquatics-System/static/css/main.560ad2f3.css.map",
-    "main.9852f66b.js.map": "/Kamp-Bj-Aquatics-System/static/js/main.9852f66b.js.map",
+    "main.f4dd5e9b.js.map": "/Kamp-Bj-Aquatics-System/static/js/main.f4dd5e9b.js.map",
     "213.a095f10a.chunk.js.map": "/Kamp-Bj-Aquatics-System/static/js/213.a095f10a.chunk.js.map",
     "455.c02820da.chunk.js.map": "/Kamp-Bj-Aquatics-System/static/js/455.c02820da.chunk.js.map",
     "453.83b4c497.chunk.js.map": "/Kamp-Bj-Aquatics-System/static/js/453.83b4c497.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.560ad2f3.css",
-    "static/js/main.9852f66b.js"
+    "static/js/main.f4dd5e9b.js"
   ]
 }
